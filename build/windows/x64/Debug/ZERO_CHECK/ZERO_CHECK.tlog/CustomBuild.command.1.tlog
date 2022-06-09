@@ -1,0 +1,10 @@
+^D:\FLUTTER_PROJECTS\HELLOWORLD\BUILD\WINDOWS\CMAKEFILES\752DD07FF9825EC2249C374C0CD15E4F\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/flutter_projects/helloworld/windows -BD:/flutter_projects/helloworld/build/windows --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/flutter_projects/helloworld/build/windows/helloworld.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
