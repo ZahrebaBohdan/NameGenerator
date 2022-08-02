@@ -1,8 +1,8 @@
-# Install script for directory: D:/flutter_projects/helloworld/windows/runner
+# Install script for directory: D:/flutter_projects/namegenerator/windows/runner
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "$<TARGET_FILE_DIR:helloworld>")
+  set(CMAKE_INSTALL_PREFIX "$<TARGET_FILE_DIR:namegenerator>")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

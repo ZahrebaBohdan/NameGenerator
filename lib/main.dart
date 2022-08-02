@@ -1,17 +1,11 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:namegenerator/provider/google_sign_in.dart';
 import 'package:namegenerator/sign_up.dart';
 import 'package:provider/provider.dart';
-import 'package:property_change_notifier/property_change_notifier.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,7 +68,6 @@ class _RandomWordsState extends State<RandomWords> {
   // .snapshots()
   // .map((snapshot) => snapshot.docs.map((doc) => );
 
- 
   @override
   Widget build(BuildContext context) {
     final screens = [
@@ -129,8 +122,7 @@ class _RandomWordsState extends State<RandomWords> {
 
   Widget _buildRow(WordPair pair) {
     final alreadySaved = saved.contains(pair);
-    final docFavourites =
-        FirebaseFirestore.instance.collection('favourites');
+    final docFavourites = FirebaseFirestore.instance.collection('favourites');
 
     return ListTile(
         title: Text(
@@ -143,20 +135,19 @@ class _RandomWordsState extends State<RandomWords> {
           semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
         ),
         onTap: () async {
-            if (alreadySaved) {
+          if (alreadySaved) {
             setState(() {
               saved.remove(pair);
-              });
+            });
             await docFavourites.doc().delete();
-            } else {
-              setState(() {
+          } else {
+            setState(() {
               saved.add(pair);
-              });
-              await docFavourites.add({
-                'wordpair': '$pair',
-              });
-            }
-          
+            });
+            await docFavourites.add({
+              'wordpair': '$pair',
+            });
+          }
         });
   }
 
@@ -230,7 +221,6 @@ class _RandomWordsState extends State<RandomWords> {
   Widget profile() {
     final user = FirebaseAuth.instance.currentUser!;
 
-
     return Padding(
       padding: EdgeInsets.all(32),
       child: Column(
@@ -238,8 +228,10 @@ class _RandomWordsState extends State<RandomWords> {
         children: [
           Spacer(),
           Center(
-              child: CircleAvatar(radius: 40,
-              backgroundImage: NetworkImage(user.photoURL!),)),
+              child: CircleAvatar(
+            radius: 40,
+            backgroundImage: NetworkImage(user.photoURL!),
+          )),
           Text(''),
           Text(
             'Name: ' + user.displayName!,
@@ -267,7 +259,8 @@ class _RandomWordsState extends State<RandomWords> {
                 ))),
             child: Text('Log Out'),
             onPressed: () {
-              final provider = Provider.of<GoogleSignInProvider>(context,listen: false);
+              final provider =
+                  Provider.of<GoogleSignInProvider>(context, listen: false);
               provider.googleLogout();
               Navigator.push(
                 context,

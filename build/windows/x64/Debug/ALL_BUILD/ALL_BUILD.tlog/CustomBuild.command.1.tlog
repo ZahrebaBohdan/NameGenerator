@@ -1,6 +1,6 @@
-^D:\FLUTTER_PROJECTS\HELLOWORLD\WINDOWS\CMAKELISTS.TXT
+^D:\FLUTTER_PROJECTS\NAMEGENERATOR\WINDOWS\CMAKELISTS.TXT
 setlocal
-"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/flutter_projects/helloworld/windows -BD:/flutter_projects/helloworld/build/windows --check-stamp-file D:/flutter_projects/helloworld/build/windows/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/flutter_projects/namegenerator/windows -BD:/flutter_projects/namegenerator/build/windows --check-stamp-file D:/flutter_projects/namegenerator/build/windows/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
