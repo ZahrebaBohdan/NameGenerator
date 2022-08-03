@@ -5,6 +5,7 @@ import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:namegenerator/provider/google_sign_in.dart';
 import 'package:namegenerator/sign_up.dart';
+import 'package:namegenerator/wordPage.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -20,11 +21,11 @@ class MyApp extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasData) {
           return MyHome();
         } else if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text('Error'),
           );
         } else {
@@ -78,7 +79,7 @@ class _RandomWordsState extends State<RandomWords> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Name Generator'),
+        title: const Text('Name Generator'),
       ),
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
@@ -88,7 +89,7 @@ class _RandomWordsState extends State<RandomWords> {
         child: NavigationBar(
           selectedIndex: index,
           onDestinationSelected: (i) => setState(() => index = i),
-          destinations: [
+          destinations: const [
             NavigationDestination(
               icon: Icon(
                 Icons.home_outlined,
@@ -125,15 +126,14 @@ class _RandomWordsState extends State<RandomWords> {
     final docFavourites = FirebaseFirestore.instance.collection('favourites');
 
     return ListTile(
-        title: Text(
-          pair.asPascalCase,
-          style: biggerFont,
-        ),
-        trailing: Icon(
-          alreadySaved ? Icons.favorite : Icons.favorite_border,
-          color: alreadySaved ? Colors.red : null,
-          semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
-        ),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> WordPage(pair)));
+      },
+      title: Text(
+        pair.asPascalCase,
+        style: biggerFont,
+      ),
+      trailing: GestureDetector(
         onTap: () async {
           if (alreadySaved) {
             setState(() {
@@ -144,11 +144,20 @@ class _RandomWordsState extends State<RandomWords> {
             setState(() {
               saved.add(pair);
             });
-            await docFavourites.add({
-              'wordpair': '$pair',
-            });
+            await docFavourites.add(
+              {
+                'wordpair': '$pair',
+              },
+            );
           }
-        });
+        },
+        child: Icon(
+          alreadySaved ? Icons.favorite : Icons.favorite_border,
+          color: alreadySaved ? Colors.red : null,
+          semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
+        ),
+      ),
+    );
   }
 
   Widget _buildSuggestions() {
@@ -177,34 +186,40 @@ class _RandomWordsState extends State<RandomWords> {
   Widget favourites(pair) {
     if (saved.isEmpty) {
       return Center(
-          child: Text(
-        'Empty',
-        style: TextStyle(
-            fontSize: 30,
-            color: Colors.grey.shade300,
-            fontWeight: FontWeight.w400),
-      ));
+        child: Text(
+          'Empty',
+          style: TextStyle(
+              fontSize: 30,
+              color: Colors.grey.shade300,
+              fontWeight: FontWeight.w400),
+        ),
+      );
     }
     final tiles = saved.map(
       (pair) {
         final alreadySaved = saved.contains(pair);
 
         return ListTile(
-            title: Text(
-              pair.asPascalCase,
-              style: biggerFont,
-            ),
-            trailing: Icon(
+          title: Text(
+            pair.asPascalCase,
+            style: biggerFont,
+          ),
+          trailing: GestureDetector(
+            onTap: () {
+              setState(
+                () {
+                  const Icon(Icons.favorite_border);
+                  saved.remove(pair);
+                },
+              );
+            },
+            child: Icon(
               alreadySaved ? Icons.favorite : Icons.favorite_border,
               color: alreadySaved ? Colors.red : null,
               semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
             ),
-            onTap: () {
-              setState(() {
-                Icon(Icons.favorite_border);
-                saved.remove(pair);
-              });
-            });
+          ),
+        );
       },
     );
     final divided = tiles.isNotEmpty
@@ -222,42 +237,45 @@ class _RandomWordsState extends State<RandomWords> {
     final user = FirebaseAuth.instance.currentUser!;
 
     return Padding(
-      padding: EdgeInsets.all(32),
+      padding: const EdgeInsets.all(32),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Spacer(),
+          const Spacer(),
           Center(
-              child: CircleAvatar(
-            radius: 40,
-            backgroundImage: NetworkImage(user.photoURL!),
-          )),
-          Text(''),
+            child: CircleAvatar(
+              radius: 40,
+              backgroundImage: NetworkImage(user.photoURL!),
+            ),
+          ),
+          const Text(''),
           Text(
             'Name: ' + user.displayName!,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          Text(''),
+          const Text(''),
           Text(
             'Name: ' + user.email!,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          Text(''),
+          const Text(''),
           Text(
             'Verified: ' + user.emailVerified.toString(),
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          Spacer(),
+          const Spacer(),
           ElevatedButton(
             style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.black),
-                backgroundColor: MaterialStateProperty.all(Colors.blue.shade50),
-                minimumSize: MaterialStateProperty.all(Size(100, 45)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
+              foregroundColor: MaterialStateProperty.all(Colors.black),
+              backgroundColor: MaterialStateProperty.all(Colors.blue.shade50),
+              minimumSize: MaterialStateProperty.all(const Size(100, 45)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
-                ))),
-            child: Text('Log Out'),
+                ),
+              ),
+            ),
+            child: const Text('Log Out'),
             onPressed: () {
               final provider =
                   Provider.of<GoogleSignInProvider>(context, listen: false);
