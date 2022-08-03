@@ -84,7 +84,7 @@ class _RandomWordsState extends State<RandomWords> {
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          indicatorColor: Colors.blue.shade200,
+          indicatorColor: Colors.blue[200],
         ),
         child: NavigationBar(
           selectedIndex: index,
@@ -127,7 +127,8 @@ class _RandomWordsState extends State<RandomWords> {
 
     return ListTile(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> WordPage(pair)));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => WordPage(pair)));
       },
       title: Text(
         pair.asPascalCase,
@@ -200,6 +201,12 @@ class _RandomWordsState extends State<RandomWords> {
         final alreadySaved = saved.contains(pair);
 
         return ListTile(
+          onTap: (() => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WordPage(pair),
+                ),
+              )),
           title: Text(
             pair.asPascalCase,
             style: biggerFont,
@@ -224,11 +231,11 @@ class _RandomWordsState extends State<RandomWords> {
     );
     final divided = tiles.isNotEmpty
         ? ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList()
+                context: context, tiles: tiles, color: Colors.blue[200])
+            .toList()
         : <Widget>[];
     return ListView(
+      padding: const EdgeInsets.all(16),
       children: divided,
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:namegenerator/main.dart';
 
 class WordPage extends StatefulWidget {
   final WordPair? pair;
@@ -19,7 +20,7 @@ class _WordPageState extends State<WordPage> {
       body: SafeArea(
         child: Center(
           child: Container(
-            color: Colors.red,
+            color: Colors.blue[100],
             child: Column(
               children: [
                 Row(children: [
@@ -27,6 +28,7 @@ class _WordPageState extends State<WordPage> {
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.arrow_back_ios_rounded))
                 ]),
+                SizedBox(height: 250),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -36,9 +38,47 @@ class _WordPageState extends State<WordPage> {
                         style: const TextStyle(fontSize: 70),
                       ),
                     ]),
-                    Text(
-                      '${widget.pair}',
-                      style: const TextStyle(fontSize: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 45,
+                          child: ElevatedButton.icon(
+                            icon: Icon(Icons.share),
+                            style: ButtonStyle(
+                                shadowColor:
+                                    MaterialStateProperty.all(Colors.white),
+                                overlayColor:
+                                    MaterialStateProperty.all(Colors.blue[100]),
+                                foregroundColor:
+                                    MaterialStateProperty.all(Colors.black),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white)),
+                            onPressed: () => null,
+                            label: const Text(
+                              'Share',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 25),
+                        SizedBox(
+                          height: 45,
+                          child:ElevatedButton.icon(
+                            icon: Icon(Icons.favorite,color: Colors.red,),
+                            style: ButtonStyle(
+                                shadowColor:
+                                    MaterialStateProperty.all(Colors.white),
+                                overlayColor:
+                                    MaterialStateProperty.all(Colors.blue[100]),
+                                foregroundColor:
+                                    MaterialStateProperty.all(Colors.black),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white)),
+                            onPressed: () => null,
+                            label: Text('Like'),
+                        ),),
+                      ],
                     ),
                   ],
                 ),
