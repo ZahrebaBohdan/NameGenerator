@@ -8,9 +8,13 @@ import 'package:namegenerator/sign_up.dart';
 import 'package:namegenerator/wordPage.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 

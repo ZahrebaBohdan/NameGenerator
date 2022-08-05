@@ -28,7 +28,7 @@ class _WordPageState extends State<WordPage> {
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.arrow_back_ios_rounded))
                 ]),
-                SizedBox(height: 250),
+                const SizedBox(height: 250),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -44,7 +44,7 @@ class _WordPageState extends State<WordPage> {
                         SizedBox(
                           height: 45,
                           child: ElevatedButton.icon(
-                            icon: Icon(Icons.share),
+                            icon: const Icon(Icons.share),
                             style: ButtonStyle(
                                 shadowColor:
                                     MaterialStateProperty.all(Colors.white),
@@ -61,11 +61,11 @@ class _WordPageState extends State<WordPage> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 25),
+                        const SizedBox(width: 25),
                         SizedBox(
                           height: 45,
                           child:ElevatedButton.icon(
-                            icon: Icon(Icons.favorite,color: Colors.red,),
+                            icon: const Icon(Icons.favorite,color: Colors.red,),
                             style: ButtonStyle(
                                 shadowColor:
                                     MaterialStateProperty.all(Colors.white),
@@ -76,7 +76,7 @@ class _WordPageState extends State<WordPage> {
                                 backgroundColor:
                                     MaterialStateProperty.all(Colors.white)),
                             onPressed: () => null,
-                            label: Text('Like'),
+                            label: const Text('Like'),
                         ),),
                       ],
                     ),
